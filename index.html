@@ -28,7 +28,9 @@
         }
         messaging.onMessage(function (payload) {
             console.log("Message received. ", JSON.stringify(payload));
-            notificationElement.innerHTML = notificationElement.innerHTML + " " + payload.data.notification;
+            navigator.serviceWorker.register('firebase-messaging-sw.js');
+            payload.data.data = JSON.parse(JSON.stringify(payload.data));
+            registration.showNotification(payload.data.title, payload.data);            
         });
         messaging.onTokenRefresh(function () {
             messaging.getToken()
