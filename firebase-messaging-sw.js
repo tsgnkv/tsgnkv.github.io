@@ -5,12 +5,7 @@ importScripts('https://www.gstatic.com/firebasejs/4.13.0/firebase-messaging.js')
 Initialize the Firebase app in the service worker by passing in the messagingSenderId.
 */
 firebase.initializeApp({
-    'messagingSenderId': '961426606911',
-    'apiKey': 'AIzaSyDSMu_AenLEFOPBNkPQkIr6dtKmzwSIxr0',
-    'authDomain': 'test-web-push-ece72.firebaseapp.com',
-    'databaseURL': 'https://test-web-push-ece72.firebaseio.com',
-    'projectId': 'test-web-push-ece72',
-    'storageBucket': 'test-web-push-ece72.appspot.com'
+    'messagingSenderId': '961426606911'
 })
 
 /*
