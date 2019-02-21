@@ -69,7 +69,7 @@
         var title = document.getElementById("title").value;
         var body = document.getElementById("body").value;
         var icon = document.getElementById("icon").value;
-        url = 'http://' + RTDMhost + 'RTDM/rest/runtime/decisions/webPUSH';
+        url = 'http://' + RTDMhost + '/RTDM/rest/runtime/decisions/webPUSH';
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/vnd.sas.decision.request+json');
         xhr.onload = function () {
