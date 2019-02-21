@@ -21,6 +21,7 @@
                 .then(function (token) {
                     // print the token on the HTML page
                     tokenElement.innerHTML = "Token is " + token;
+                    send_token = token;
                 })
                 .catch(function (err) {
                     errorElement.innerHTML = "Error: " + err;
@@ -55,11 +56,37 @@
                 .then(function (refreshedToken) {
                     console.log('Token refreshed.');
                     tokenElement.innerHTML = "Token is " + refreshedToken;
+                    send_token = refreshedToken;
                 }).catch(function (err) {
                     errorElement.innerHTML = "Error: " + err;
                     console.log('Unable to retrieve refreshed token ', err);
                 });
         });
+        
+    function sendToRTDM() {
+        var xhr = new XMLHttpRequest();
+        var RTDMhost = document.getElementById("RTDMhost").value;
+        var title = document.getElementById("title").value;
+        var body = document.getElementById("body").value;
+        var icon = document.getElementById("icon").value;
+        url = 'http://' + RTDMhost + 'RTDM/rest/runtime/decisions/webPUSH';
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/vnd.sas.decision.request+json');
+        xhr.onload = function () {
+            console.log(this.responseText);
+        };
+        xhr.send(JSON.stringify({
+            "correlationId": "0",
+            "clientTimeZone": "EST",
+            "version": 1,
+            "inputs": {
+                "token": send_token,
+                "title": title,
+                "text": body,
+                "icon": icon
+            }
+        }));  
+    }
     </script>
 </head>
 
@@ -74,6 +101,7 @@
         tokenElement = document.getElementById("token")
         notificationElement = document.getElementById("notification")
         errorElement = document.getElementById("error")
+        var send_token = "";
     </script>
     <button onclick="initFirebaseMessagingRegistration()">Enable Firebase Messaging</button>
     <form>
