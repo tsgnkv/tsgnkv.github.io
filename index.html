@@ -6,10 +6,13 @@
     <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-auth.js"></script>
     <script>
+        
         firebase.initializeApp({
             'messagingSenderId': '961426606911'
         });
+        
         const messaging = firebase.messaging();
+        
         function initFirebaseMessagingRegistration() {
             messaging
                 .requestPermission()
@@ -19,7 +22,6 @@
                     return messaging.getToken();
                 })
                 .then(function (token) {
-                    // print the token on the HTML page
                     tokenElement.innerHTML = "Token is " + token;
                     send_token = token;
                 })
@@ -28,6 +30,7 @@
                     console.log("Didn't get notification permission", err);
                 });
         }
+        
         messaging.onMessage(function (payload) {
             console.log("Message received. ", JSON.stringify(payload));
             navigator.serviceWorker.register('firebase-messaging-sw.js');
@@ -37,20 +40,8 @@
             }).catch(function(error) {
                 console.log('ServiceWorker registration failed', error);
             });
-            
-            
-            const notification = JSON.parse(payload.data.notification);
-    // Customize notification here
-    const notificationTitle = notification.title;
-    const notificationOptions = {
-        body: notification.body,
-        icon: notification.icon
-    };
-
-    return self.registration.showNotification(notificationTitle,
-        notificationOptions);
-            
         });
+        
         messaging.onTokenRefresh(function () {
             messaging.getToken()
                 .then(function (refreshedToken) {
@@ -62,11 +53,12 @@
                     console.log('Unable to retrieve refreshed token ', err);
                 });
         });
+        
     </script>
 </head>
 
 <body>
-    <h1>Test page</h1>
+    <h1>Test web-push page</h1>
     <div id="token" style="color:lightblue"></div>
     <div id="message" style="color:lightblue"></div>
     <div id="notification" style="color:green"></div>
@@ -76,7 +68,6 @@
         tokenElement = document.getElementById("token")
         notificationElement = document.getElementById("notification")
         errorElement = document.getElementById("error")
-        var send_token = "";
     </script>
     <button onclick="initFirebaseMessagingRegistration()">Enable Firebase Messaging</button>
 </body>
