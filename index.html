@@ -62,29 +62,6 @@
                     console.log('Unable to retrieve refreshed token ', err);
                 });
         });
-        
-    function sendToRTDM() {
-        var xhr = new XMLHttpRequest();
-        var RTDMhost = document.getElementById("RTDMhost").value;
-        var title = document.getElementById("title").value;
-        var body = document.getElementById("body").value;
-        url = 'http://' + RTDMhost + '/RTDM/rest/runtime/decisions/webPUSH';
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-type', 'application/vnd.sas.decision.request+json');
-        xhr.onload = function () {
-            console.log(this.responseText);
-        };
-        xhr.send(JSON.stringify({
-            "correlationId": "0",
-            "clientTimeZone": "EST",
-            "version": 1,
-            "inputs": {
-                "token": send_token,
-                "title": title,
-                "text": body,
-                "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/SAS_logo_horiz.svg/1280px-SAS_logo_horiz.svg.png"
-            }
-        }));  
     }
     </script>
 </head>
@@ -103,14 +80,6 @@
         var send_token = "";
     </script>
     <button onclick="initFirebaseMessagingRegistration()">Enable Firebase Messaging</button>
-    <form>
-        <p><b>Trigger WEB-push</b></p>
-        RTDM host URL</br>
-        <input id="RTDMhost" name="RTDMhost"></br></br>
-        <input id="title" name="title">Push Title</br>
-        <input id="body" name="body">Push Text</br>
-        <button onclick="sendToRTDM(); return false;">Trigger push</button>
-    </form>
 </body>
 
 </html>
