@@ -68,7 +68,6 @@
         var RTDMhost = document.getElementById("RTDMhost").value;
         var title = document.getElementById("title").value;
         var body = document.getElementById("body").value;
-        var icon = document.getElementById("icon").value;
         url = 'http://' + RTDMhost + '/RTDM/rest/runtime/decisions/webPUSH';
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/vnd.sas.decision.request+json');
@@ -83,7 +82,7 @@
                 "token": send_token,
                 "title": title,
                 "text": body,
-                "icon": icon
+                "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/SAS_logo_horiz.svg/1280px-SAS_logo_horiz.svg.png"
             }
         }));  
     }
@@ -110,7 +109,6 @@
         <input id="RTDMhost" name="RTDMhost"></br></br>
         <input id="title" name="title">Push Title</br>
         <input id="body" name="body">Push Text</br>
-        <input id="icon" name="icon">Icon URL</br>
         <button onclick="sendToRTDM(); return false;">Trigger push</button>
     </form>
 </body>
