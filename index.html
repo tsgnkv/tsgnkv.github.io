@@ -1,85 +1,166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>    
+        <!-- TODO
+        <script type="text/javascript" async="" src="https://www.google-analytics.com/gtm/js?id=GTM-58H7MF6&amp;t=gtag_UA_116298013_2&amp;cid=482715033.1555485517&amp;gac=_gaexp%3DGAX1.3.Q00oASIJRCWfLd4ojn68JA.18096.1"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-116298013-2"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-<head>    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116298013-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+            gtag('config', 'UA-116298013-2', { 'optimize_id': 'GTM-58H7MF6'});
+        </script>
+        <style>
+            body > h1 {
+                font-size: 30px
+            }
+        </style>
+        <style>
+            body > h1 {
+                font-weight: lighter
+            }
+        </style>
+        -->
 
-        gtag('config', 'UA-116298013-2', { 'optimize_id': 'GTM-58H7MF6'});
-    </script>
-
-
-    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-messaging.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-auth.js"></script>
-    <script>
-        
-        firebase.initializeApp({
-            'messagingSenderId': '961426606911'
-        });
-        
-        const messaging = firebase.messaging();
-        
-        function initFirebaseMessagingRegistration() {
-            messaging
-                .requestPermission()
-                .then(function () {
-                    messageElement.innerHTML = "Got notification permission";
-                    console.log("Got notification permission");
-                    return messaging.getToken();
-                })
-                .then(function (token) {
-                    tokenElement.innerHTML = "Token is " + token;
-                    send_token = token;
-                })
-                .catch(function (err) {
-                    errorElement.innerHTML = "Error: " + err;
-                    console.log("Didn't get notification permission", err);
-                });
-        }
-        
-        messaging.onMessage(function (payload) {
-            console.log("Message received. ", JSON.stringify(payload));
-            navigator.serviceWorker.register('firebase-messaging-sw.js');
-            navigator.serviceWorker.ready.then(function(registration) {
-                payload.data.data = JSON.parse(JSON.stringify(payload.data));
-                registration.showNotification(payload.data.title, payload.data);
-            }).catch(function(error) {
-                console.log('ServiceWorker registration failed', error);
+        <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-auth.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script>
+            
+            firebase.initializeApp({
+                'messagingSenderId': '961426606911'
             });
-        });
-        
-        messaging.onTokenRefresh(function () {
-            messaging.getToken()
-                .then(function (refreshedToken) {
-                    console.log('Token refreshed.');
-                    tokenElement.innerHTML = "Token is " + refreshedToken;
-                    send_token = refreshedToken;
-                }).catch(function (err) {
-                    errorElement.innerHTML = "Error: " + err;
-                    console.log('Unable to retrieve refreshed token ', err);
+            
+            const messaging = firebase.messaging();
+            
+            function initFirebaseMessagingRegistration() {
+                messaging
+                    .requestPermission()
+                    .then(function () {
+                        messageElement.innerHTML = "Got notification permission";
+                        console.log("Got notification permission");
+                        return messaging.getToken();
+                    })
+                    .then(function (token) {
+                        tokenElement.innerHTML = "Token is " + token;
+                        send_token = token;
+                    })
+                    .catch(function (err) {
+                        errorElement.innerHTML = "Error: " + err;
+                        console.log("Didn't get notification permission", err);
+                    });
+            }
+            
+            messaging.onMessage(function (payload) {
+                console.log("Message received. ", JSON.stringify(payload));
+                navigator.serviceWorker.register('firebase-messaging-sw.js');
+                navigator.serviceWorker.ready.then(function(registration) {
+                    payload.data.data = JSON.parse(JSON.stringify(payload.data));
+                    registration.showNotification(payload.data.title, payload.data);
+                }).catch(function(error) {
+                    console.log('ServiceWorker registration failed', error);
                 });
-        });
+            });
+            
+            messaging.onTokenRefresh(function () {
+                messaging.getToken()
+                    .then(function (refreshedToken) {
+                        console.log('Token refreshed.');
+                        tokenElement.innerHTML = "Token is " + refreshedToken;
+                        send_token = refreshedToken;
+                    }).catch(function (err) {
+                        errorElement.innerHTML = "Error: " + err;
+                        console.log('Unable to retrieve refreshed token ', err);
+                    });
+            });
+            
+        </script>
+        <style>
+            .bg {
+                background-image: url("./bg.jpg");
+                height: 100%;
+
+                /* Center and scale the image nicely */
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            .card {
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+            textarea:focus,
+            input[type="text"]:focus,
+            .uneditable-input:focus {   
+                border-color: #f8f9fa;
+                box-shadow: 0 0 0 3px rgba(248, 249, 250, 0.5); 
+                outline: 0 none;
+            }
+        </style>
         
-    </script>
-</head>
+    </head>
+    <body>
+        <div class="bg">
+            <div class="container d-xl-flex h-100 w-200 justify-content-center">
 
-<body>
-    <h1>Test web-push page</h1>
-    <div id="token" style="color:lightblue"></div>
-    <div id="message" style="color:lightblue"></div>
-    <div id="notification" style="color:green"></div>
-    <div id="error" style="color:red"></div>
-    <script>
-        messageElement = document.getElementById("message")
-        tokenElement = document.getElementById("token")
-        notificationElement = document.getElementById("notification")
-        errorElement = document.getElementById("error")
-    </script>
-    <button onclick="initFirebaseMessagingRegistration()">Enable Firebase Messaging</button>
-</body>
+                <div class="row mt-5 align-self-center">
+                    <!--Grid column-->
+                    <div class="col-xl">
+                        <!--Form-->
+                        <div class="card">
+                            <div class="card-body">
+                                <!--Body-->
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" readonly="">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-light" type="button">Copy</button>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-info">Get Firebase Token</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-</html>
+                          <!--/.Form-->
+            </div>
+                        <!--Grid column-->
+        </div>
+                      <!--Grid row-->
+
+
+
+
+
+
+            <h1>Test web-push page</h1>
+            <div id="token" style="color:lightblue"></div>
+            <div id="message" style="color:lightblue"></div>
+            <div id="notification" style="color:green"></div>
+            <div id="error" style="color:red"></div>
+
+
+            <script>
+                messageElement = document.getElementById("message")
+                tokenElement = document.getElementById("token")
+                notificationElement = document.getElementById("notification")
+                errorElement = document.getElementById("error")
+            </script>
+            <button onclick="initFirebaseMessagingRegistration()">Enable Firebase Messaging</button>
+
+
+
+
+
+
+
+            
+
+        <!-- Bootstrap needed -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+</body></html>
