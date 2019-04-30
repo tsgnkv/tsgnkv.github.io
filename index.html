@@ -32,6 +32,11 @@
             'messagingSenderId': '961426606911'
         });
 
+        navigator.serviceWorker.register('https://tsgnkv.github.io/firebase-messaging-sw.js')
+        .then((registration) => {
+            messaging.useServiceWorker(registration);
+        });
+        
         const messaging = firebase.messaging();
 
         function initFirebaseMessagingRegistration() {
