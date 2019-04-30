@@ -33,6 +33,12 @@
         });
         
         const messaging = firebase.messaging();
+        
+        function copyToBuffer() {
+            var copyText = document.getElementById("token");
+            copyText.select();
+            document.execCommand("copy");
+        }
 
         function initFirebaseMessagingRegistration() {
             messaging
@@ -109,7 +115,7 @@
                             <div class="input-group mb-3">
                                 <input id="token" type="text" class="form-control" readonly="">
                                 <div class="input-group-append">
-                                    <button class="btn btn-light" type="button">Copy</button>
+                                    <button onclick="copyToBuffer()" class="btn btn-light" type="button">Copy</button>
                                 </div>
                             </div>
                             <div class="text-center mt-4">
