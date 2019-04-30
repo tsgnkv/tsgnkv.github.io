@@ -33,11 +33,6 @@
         });
         
         const messaging = firebase.messaging();
-        
-        navigator.serviceWorker.register('https://tsgnkv.github.io/firebase-messaging-sw.js')
-        .then((registration) => {
-            messaging.useServiceWorker(registration);
-        });
 
         function initFirebaseMessagingRegistration() {
             messaging
