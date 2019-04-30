@@ -31,13 +31,13 @@
         firebase.initializeApp({
             'messagingSenderId': '961426606911'
         });
-
+        
+        const messaging = firebase.messaging();
+        
         navigator.serviceWorker.register('https://tsgnkv.github.io/firebase-messaging-sw.js')
         .then((registration) => {
             messaging.useServiceWorker(registration);
         });
-        
-        const messaging = firebase.messaging();
 
         function initFirebaseMessagingRegistration() {
             messaging
