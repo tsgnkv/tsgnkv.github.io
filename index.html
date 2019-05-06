@@ -81,6 +81,7 @@
                 })
                 .then(function(token) {
                     popupAlert("alert-success", "Token successfully received.");
+                    tokenElement = document.getElementById("token");
                     tokenElement.value = token;
                 })
                 .catch(function(err) {
@@ -106,6 +107,7 @@
                 .then(function(refreshedToken) {
                     console.log('Token refreshed.');
                     popupAlert("alert-info", "Token refreshed.");
+                    tokenElement = document.getElementById("token");
                     tokenElement.value = refreshedToken;
                 }).catch(function(err) {
                     console.log('Unable to retrieve refreshed token ', err);
@@ -168,11 +170,6 @@
             </div>
         </div>
     </div>
-
-
-    <script>
-        tokenElement = document.getElementById("token");
-    </script>
 
     <!-- Bootstrap needed -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
