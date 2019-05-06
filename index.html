@@ -75,6 +75,7 @@
                 .requestPermission()
                 .then(function() {
                     console.log("Got notification permission");
+                    popupAlert("alert-info", "Got notification permission.");
                     return messaging.getToken();
                 })
                 .then(function(token) {
@@ -82,6 +83,7 @@
                     tokenElement.value = token;
                 })
                 .catch(function(err) {
+                    popupAlert("alert-danger", "Didn't get notification permission.");
                     console.log("Didn't get notification permission", err);
                 });
         }
@@ -93,6 +95,7 @@
                 payload.data.data = JSON.parse(JSON.stringify(payload.data));
                 registration.showNotification(payload.data.title, payload.data);
             }).catch(function(error) {
+                popupAlert("alert-danger", "ServiceWorker registration failed.");
                 console.log('ServiceWorker registration failed', error);
             });
         });
@@ -101,9 +104,11 @@
             messaging.getToken()
                 .then(function(refreshedToken) {
                     console.log('Token refreshed.');
+                    popupAlert("alert-info", "Token refreshed.");
                     tokenElement.value = refreshedToken;
                 }).catch(function(err) {
                     console.log('Unable to retrieve refreshed token ', err);
+                    popupAlert("alert-danger", "Unable to retrieve refreshed token.");
                 });
         });
     </script>
