@@ -68,6 +68,7 @@
             var copyText = document.getElementById("token");
             copyText.select();
             document.execCommand("copy");
+            popupAlert("alert-info", "Token has been copied to clipboard.");
         }
 
         function initFirebaseMessagingRegistration() {
