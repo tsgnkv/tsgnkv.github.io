@@ -28,6 +28,36 @@
     <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-auth.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script>
+        
+        function popupAlert(stylename, text) {
+            
+            var alertElement = document.createElement("div");
+            alertElement.className = "alert " + stylename + " alert-dismissible fade show";
+            alertElement.setAttribute("role", "alert");
+            
+            var alertButton = document.createElement("button");
+            alertButton.type = "button";
+            alertButton.className = "close";
+            alertButton.setAttribute("data-dismiss", "alert");
+            alertButton.setAttribute("aria-label", "Close");
+            
+            var alertTimes = document.createElement("span");
+            alertTimes.setAttribute("aria-hidden", "true");
+            alertTimes.innerHTML = "&times;";
+            
+            var alertText = document.createTextNode(text);
+            
+            alertButton.appendChild(alertTimes)
+            alertElement.appendChild(alertText)
+            alertElement.appendChild(alertButton)
+        
+            var alertsContainer = document.getElementById("alertsContainer");
+            if (alertsContainer.childNodes.length > 4)
+                alertsContainer.removeChild(alertsContainer.firstElementChild);
+            
+            alertsContainer.appendChild(alertElement);
+        }
+        
         firebase.initializeApp({
             'messagingSenderId': '961426606911'
         });
@@ -48,6 +78,7 @@
                     return messaging.getToken();
                 })
                 .then(function(token) {
+                    
                     tokenElement.value = token;
                 })
                 .catch(function(err) {
@@ -106,12 +137,9 @@
         <div class="container d-xl-flex h-100 w-200 justify-content-center">
 
             <div class="row h-100 align-self-center">
-                <!--Grid column-->
                 <div class="col-xl my-auto">
-                    <!--Form-->
                     <div class="card">
                         <div class="card-body">
-                            <!--Body-->
                             <div class="input-group mb-3">
                                 <input id="token" type="text" class="form-control" readonly="">
                                 <div class="input-group-append">
@@ -125,12 +153,11 @@
                     </div>
                 </div>
             </div>
-
-            <!--/.Form-->
+            <div id="alertsContainer">
+            </div>
         </div>
-        <!--Grid column-->
     </div>
-    <!--Grid row-->
+
 
     <script>
         tokenElement = document.getElementById("token");
