@@ -57,6 +57,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             document.execCommand("copy");
             popupAlert("alert-info", "Token has been copied to clipboard.");
         }
+        
+        function simulateWebpushSend() {
+            popupAlert("alert-info", "Web-push has been sent.");
+        }
 
         function initFirebaseMessagingRegistration() {
             messaging
@@ -162,6 +166,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="col-xl my-auto">
                     <div class="card">
                         <div class="card-body">
+                            <p class="text-center text-light h4">Firebase Token</p>
                             <div class="input-group mb-3">
                                 <input id="token" type="text" class="form-control" readonly="">
                                 <div class="input-group-append">
@@ -170,6 +175,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                             <div class="text-center mt-4">
                                 <button onclick="initFirebaseMessagingRegistration()" class="btn btn-info">Get Firebase Token</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-center text-light h4">Test 360 web-push</p>
+                            <div class="input-group mb-3">
+                                <input class="form-control" id="push_title" type="text" placeholder="Message Title">
+
+                            </div><div class="input-group mb-3">
+                                <input class="form-control" id="push_body" type="text" placeholder="Message Body">
+
+                            </div>
+                            <div class="text-center mt-4">
+                                <button class="btn btn-info" id="push_send" onclick="simulateWebpushSend()">Send me web-push</button>
                             </div>
                         </div>
                     </div>
