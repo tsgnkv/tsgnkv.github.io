@@ -70,6 +70,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     popupAlert("alert-success", "Token successfully received.");
                     tokenElement = document.getElementById("token");
                     tokenElement.value = token;
+                    document.cookie = "firebase_token=" + token;
                 })
                 .catch(function(err) {
                     popupAlert("alert-danger", "Didn't get notification permission.");
@@ -96,6 +97,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     popupAlert("alert-info", "Token refreshed.");
                     tokenElement = document.getElementById("token");
                     tokenElement.value = refreshedToken;
+                    document.cookie = "firebase_token=" + refreshedToken;
                 }).catch(function(err) {
                     console.log('Unable to retrieve refreshed token ', err);
                     popupAlert("alert-danger", "Unable to retrieve refreshed token.");
